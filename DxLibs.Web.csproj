@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
+    <Timestamp>$([System.DateTime]::Now.ToString("yyyyMMdd-HHmm"))</Timestamp>
+    <Version>0.0.1-beta$(Timestamp)</Version>
+    <RootNamespace>DxLibs.Web</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Company>Dx Libs</Company>
+    <Authors>Dx Team</Authors>
+    <Product>Web library</Product>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' OR '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>NETCORE</DefineConstants>
+    <BuildFor>NETCORE</BuildFor>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <DefineConstants>FW</DefineConstants>
+    <BuildFor>FW</BuildFor>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DxLibs.Web.Abstractions" Version="0.0.1-beta20180402-0217" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(BuildFor)' == 'FW' ">
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.0.0" />
+  </ItemGroup>
+
+</Project>
